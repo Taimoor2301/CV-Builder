@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import image from "../../assets/images/resume-builder-banner.webp";
 import brands from "../../assets/images/brand-logo-dark-d.svg";
 import Steps from "./Steps";
@@ -7,7 +7,6 @@ import WhyItWorks from "./WhyItWorks";
 import ResumeSection from "./ResumeSection";
 import Faq from "./Faq";
 import Reviews from "./Reviews";
-
 import { motion } from "framer-motion";
 import { slideIn } from "../../animation/motion";
 import BlueBox from "./BlueBox";

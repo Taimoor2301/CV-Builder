@@ -6,7 +6,8 @@ const BlueBox = () => {
 	return (
 		<motion.div
 			initial={{ x: -100, opacity: 0 }}
-			whileInView={{ x: 0, opacity: 1, transition: { delay: 0.5, duration: 0.5 } }}
+			whileInView={{ x: 0, opacity: 1, transition: { delay: 0.2, duration: 0.75 } }}
+			viewport={{ once: true }}
 			style={{
 				backgroundImage:
 					"url(https://images.unsplash.com/photo-1606978297876-ca1d2a75e631?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmFja2dyb3VuZCUyMHRleHR1cmUlMjBibHVlfGVufDB8fDB8fHww)",

@@ -1,8 +1,9 @@
 import React from "react";
 import Heading from "../../Components/Heading/Heading";
-import CV1 from "../../Components/Cvs/CV1/CV1";
 import Button from "../../Components/Buttons/Button";
-
+import { data } from "../../data/data";
+import { useStore } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 const ResumeSection = () => {
 	return (
 		<div className='flex flex-col gap-10 my-20 text-center items-center'>
@@ -13,12 +14,9 @@ const ResumeSection = () => {
 			</p>
 
 			<div className='grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-20 p-1'>
-				<CVTemplate />
-				<CVTemplate />
-				<CVTemplate />
-				<CVTemplate />
-				<CVTemplate />
-				<CVTemplate />
+				{data.map((data) => (
+					<CVTemplate key={data.name} {...data} />
+				))}
 			</div>
 		</div>
 	);
@@ -26,15 +24,20 @@ const ResumeSection = () => {
 
 export default ResumeSection;
 
-const CVTemplate = () => {
+const CVTemplate = ({ image, name, id }) => {
+	const currentTemplate = useStore((store) => store.currentTemplate);
+	const setCurrentTemplate = useStore((store) => store.setCurrentTemplate);
+	const navigate = useNavigate();
+	const handleClick = () => {
+		setCurrentTemplate(id);
+		navigate("/build");
+	};
 	return (
 		<div className='col-span-1 shadow-md relative group'>
-			<img src='https://d.novoresume.com/images/doc/minimalist-resume-template.png' className='max-w-full' alt='' />
-			<div className='absolute bottom-10 left-14 opacity-0 group-hover:opacity-100 transition-all'>
-				<Button text='Use this template' link='/resume' />
+			<img src={image} className='max-w-full' alt='' />
+			<div className='absolute bottom-10 left-[50%] translate-x-[-50%] w-max opacity-0 group-hover:opacity-100 transition-all'>
+				<Button text='Use this template' onClick={() => handleClick()} />
 			</div>
-
-			<h1 className='mx-auto mt-10 text-sky-500 font-bold'>CV Title</h1>
 		</div>
 	);
 };

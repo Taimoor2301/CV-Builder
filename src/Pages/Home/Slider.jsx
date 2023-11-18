@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 import Heading from "../../Components/Heading/Heading";
 register();
+import { data } from "../../data/data";
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../../store/store";
 
 function Slider() {
 	const ref = useRef(null);
@@ -35,12 +38,9 @@ function Slider() {
 				onClick={() => handleSlides("prev")}
 			/>
 			<swiper-container slides-per-view={slidesPerView} gap='3' loop='true' ref={ref}>
-				<Slide />
-				<Slide />
-				<Slide />
-				<Slide />
-				<Slide />
-				<Slide />
+				{data.map((data) => (
+					<Slide key={data.name} {...data} />
+				))}
 			</swiper-container>
 			<BsFillArrowRightCircleFill
 				className='cursor-pointer absolute top-[60%] right-0 text-5xl text-orange-500 z-[100000]'
@@ -52,11 +52,17 @@ function Slider() {
 
 export default Slider;
 
-const Slide = () => {
+const Slide = ({ image, id }) => {
+	const navigate = useNavigate();
+	const setCurrentTemplate = useStore((store) => store.setCurrentTemplate);
+	const handleClick = () => {
+		setCurrentTemplate(id);
+		navigate("/build");
+	};
 	return (
 		<swiper-slide>
-			<div className='mx-10 select-none'>
-				<img src='https://d.novoresume.com/images/doc/minimalist-resume-template.png' className='max-w-full' alt='' />
+			<div onClick={handleClick} className='mx-10 select-none border-2 cursor-pointer'>
+				<img src={image} className='max-w-full' alt='' />
 			</div>
 		</swiper-slide>
 	);

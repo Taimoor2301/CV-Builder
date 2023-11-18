@@ -14,7 +14,7 @@ function Dashoard() {
 		<div
 			className={`${
 				open ? "w-[350px]" : "w-[70px]"
-			} fixed left-0  gap-5 top-2 bottom-2 hidden md:flex py-5 px-2 shadow-md rounded-tr-xl rounded-br-xl border-2 flex-col justify-between items-start overflow-hidden z-[1000000000] bg-white transition-all duration-500`}>
+			} fixed left-0  gap-5 top-2 bottom-2 hidden xl:flex py-5 px-2 shadow-md rounded-tr-xl rounded-br-xl border-2 flex-col justify-between items-start overflow-hidden z-[1000000000] bg-white transition-all duration-500`}>
 			<Link
 				to='/profile'
 				className='text-3xl hover:bg-orange-100 flex items-center justify-start gap-20 mx-auto w-full rounded-lg p-2'
@@ -59,7 +59,7 @@ function Dashoard() {
 
 				<button
 					title='Logout'
-					className='p-2 rounded-lg bg-red-500 font-medium text-white flex gap-3 text-2xl justify-center items-center w-full hover:bg-red-600 transition-all duration-500'>
+					className='p-2 rounded-lg bg-orange-400 hover:bg-red-500 font-medium text-white flex gap-3 text-2xl justify-center items-center w-full transition-all duration-500'>
 					<AiOutlineLogout /> <span className={`${!open && "hidden"}`}>Logout</span>
 				</button>
 			</div>
