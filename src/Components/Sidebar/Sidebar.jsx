@@ -59,12 +59,14 @@ function Dashoard() {
 
 				<button
 					title='Logout'
-					className='p-2 rounded-lg bg-orange-400 hover:bg-red-500 font-medium text-white flex gap-3 text-2xl justify-center items-center w-full transition-all duration-500'>
+					className='p-2 rounded-lg bg-orange-500 hover:bg-red-500 font-medium text-white flex gap-3 text-2xl justify-center items-center w-full transition-all duration-500'>
 					<AiOutlineLogout /> <span className={`${!open && "hidden"}`}>Logout</span>
 				</button>
 			</div>
 
-			<div onClick={handleOpen} className='cursor-pointer text-3xl hover:bg-orange-100 flex items-center justify-start mx-auto w-full rounded-lg p-2'>
+			<div
+				onClick={handleOpen}
+				className='cursor-pointer text-3xl hover:bg-orange-500 hover:text-white flex items-center justify-start mx-auto w-full rounded-lg p-2'>
 				{open ? <RxExit className='rotate-180' /> : <RxDashboard />}
 				{open && (
 					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} transition-all duration-500 text-lg font-medium`}>Close</span>

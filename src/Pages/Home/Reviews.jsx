@@ -97,7 +97,7 @@ const Carosel = () => {
 				<BsFillArrowLeftCircleFill className='cursor-pointer' onClick={() => prevSlide()} />
 			</div>
 
-			<swiper-container slides-per-view={slidesPerView} loop='true' ref={ref}>
+			<swiper-container slides-per-view={slidesPerView} autoPlay='true' loop='true' ref={ref}>
 				{reviews.map((review, index) => (
 					<swiper-slide key={index}>
 						<Review {...review} />

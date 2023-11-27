@@ -37,7 +37,7 @@ function Slider() {
 				className='cursor-pointer absolute top-[60%] left-0 text-5xl text-orange-500 z-[100000]'
 				onClick={() => handleSlides("prev")}
 			/>
-			<swiper-container slides-per-view={slidesPerView} gap='3' loop='true' ref={ref}>
+			<swiper-container autoPlay='true' loop='true' slides-per-view={slidesPerView} gap='3' ref={ref}>
 				{data.map((data) => (
 					<Slide key={data.name} {...data} />
 				))}
