@@ -30,7 +30,7 @@ function Dashoard() {
 				</Link>
 				<Link title='Create CV' to='/' className='text-3xl hover:bg-orange-100 flex items-center justify-start gap-20 mx-auto w-full rounded-lg p-2'>
 					<AiOutlinePlus />{" "}
-					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} transition-all duration-500 text-lg font-medium`}>
+					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} w-max transition-all duration-500 text-lg font-medium`}>
 						Create a CV
 					</span>
 				</Link>
@@ -43,7 +43,7 @@ function Dashoard() {
 					to='/'
 					className='text-3xl hover:bg-orange-100 flex items-center justify-start gap-20 mx-auto w-full rounded-lg p-2'>
 					<AiOutlineIdcard />{" "}
-					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} transition-all duration-500 text-lg font-medium`}>
+					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} w-max transition-all duration-500 text-lg font-medium`}>
 						Card Templates
 					</span>
 				</Link>
@@ -52,7 +52,7 @@ function Dashoard() {
 					to='/'
 					className='text-3xl hover:bg-orange-100 flex items-center justify-start gap-20 mx-auto w-full rounded-lg p-2'>
 					<RiPagesLine />{" "}
-					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} transition-all duration-500 text-lg font-medium`}>
+					<span className={`absolute left-[35%] ${open ? "opacity-100" : "opacity-0"} w-max transition-all duration-500 text-lg font-medium`}>
 						Cover Letter
 					</span>
 				</Link>

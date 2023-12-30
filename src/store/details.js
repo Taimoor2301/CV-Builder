@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { nanoid } from "nanoid";
-import { hobbies, workHistory } from "../CV Templates/dummyData";
 
 const store = (set) => {
 	return {
@@ -13,12 +12,12 @@ const store = (set) => {
 		setDetails: (n, value) => set((store) => ({ [n]: value })),
 
 		// !work
-		workExperience: [{ role: "", startDate: "", endDate: "", company: "", detail: "", id: nanoid() }],
+		workExperience: [{ role: "", startDate: "", endDate: "", company: "", jobDescription: "", id: nanoid() }],
 		editWorkExperience: (id, n, value) =>
 			set((store) => ({ workExperience: store.workExperience.map((w) => (w.id === id ? { ...w, [n]: value } : w)) })),
 		addWorkExperience: () =>
 			set((store) => ({
-				workExperience: [...store.workExperience, { role: "", startDate: "", endDate: "", company: "", detail: "", id: nanoid() }],
+				workExperience: [...store.workExperience, { role: "", startDate: "", endDate: "", company: "", jobDescription: "", id: nanoid() }],
 			})),
 		removeWorkExperience: (id) => set((store) => ({ workExperience: store.workExperience.filter((w) => w.id !== id) })),
 

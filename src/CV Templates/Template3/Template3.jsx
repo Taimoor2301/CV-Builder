@@ -1,23 +1,19 @@
-import { skills, education, workHistory, languages, hobbies } from "../dummyData";
 import { FaPhoneAlt, FaMapMarkedAlt, FaGlobe, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-function Template3() {
+function Template3({ name, jobTitle, phoneNumber, email, address, about, workExperience, education, skills, hobbies, socialLinks, languages }) {
 	const Heading = ({ text }) => {
 		return <h2 className='font-semibold text-2xl'>{text}</h2>;
 	};
 	return (
-		<main className='w-[210mm] min-h-[297mm] relative overflow-hidden grid grid-cols-7 grid-rows-6 border-2'>
-			<section className='row-span-1 col-span-4 border-b-[4px] border-b-yellow-500 flex flex-col gap-0.5 tracking-wider justify-center pl-14'>
-				<h1 className='font-semibold text-4xl'>Cirsten jobs</h1>
-				<span className='font-thin text-2xl'>Engineer</span>
+		<main className='w-[210mm] min-h-[297mm] relative overflow-hidden grid grid-cols-7 border-2'>
+			<section className='row-span-1 col-span-4 border-b-[4px] border-b-yellow-500 flex flex-col gap-0.5 tracking-wider justify-center pl-14 py-10'>
+				<h1 className='font-semibold text-4xl'>{name}</h1>
+				<span className='font-thin text-2xl'>{jobTitle}</span>
 			</section>
 			<section className='row-span-1 col-span-4 border-b-[4px] border-b-yellow-500 flex flex-col gap-0.5 py-2 tracking-wider justify-center pl-14'>
 				<Heading text='Profile' />
-				<p className='font-thin text-sm pr-2'>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi magni recusandae tempore obcaecati tempora earum aspernatur corporis facere ad
-					sequi quae ipsum dicta ducimus tenetur, natus praesentium exercitationem illum dolor?
-				</p>
+				<p className='font-thin text-sm pr-2'>{about}</p>
 			</section>
 			<section className='bg-yellow-500 col-span-3 row-span-2 row-start-[1] col-start-5 flex justify-center items-center'>
 				<img
@@ -28,8 +24,11 @@ function Template3() {
 
 			<section className='flex flex-col gap-4 pl-14 pr-3 py-10 row-span-4 col-span-4 border-r-[4px] border-r-yellow-500'>
 				<Heading text='Experience' />
-				{workHistory.map((work, i) => (
-					<ExperienceElement key={i} {...work} />
+				{workExperience.map((work, i) => (
+					<ExperienceElement
+						key={i}
+						{...work}
+					/>
 				))}
 			</section>
 
@@ -40,7 +39,10 @@ function Template3() {
 						<Heading text='Education' />
 					</span>
 					{education.map((e, i) => (
-						<EducationElement key={i} {...e} />
+						<EducationElement
+							key={i}
+							{...e}
+						/>
 					))}
 				</div>
 
@@ -48,7 +50,9 @@ function Template3() {
 					<Heading text='Skills' />
 					<ul className='flex flex-col pl-8 gap-1'>
 						{skills.map((s, i) => (
-							<li className='list-disc' key={i}>
+							<li
+								className='list-disc'
+								key={i}>
 								{s.name}
 							</li>
 						))}
@@ -60,11 +64,26 @@ function Template3() {
 						<Heading text='Contact' />
 					</span>
 					<div className='flex flex-col gap-3'>
-						<ConatctElement contact='(+01)555-555-555' Icon={FaPhoneAlt} />
-						<ConatctElement contact='exapmple@example.com' Icon={MdEmail} />
-						<ConatctElement contact='Rawalpindi, Pakistan' Icon={FaMapMarkedAlt} />
-						<ConatctElement contact='www.example.com' Icon={FaGlobe} />
-						<ConatctElement contact='linkedin/kaal123' Icon={FaLinkedin} />
+						<ConatctElement
+							contact={phoneNumber}
+							Icon={FaPhoneAlt}
+						/>
+						<ConatctElement
+							contact={email}
+							Icon={MdEmail}
+						/>
+						<ConatctElement
+							contact={address}
+							Icon={FaMapMarkedAlt}
+						/>
+						<ConatctElement
+							contact='www.example.com'
+							Icon={FaGlobe}
+						/>
+						<ConatctElement
+							contact='linkedin/kaal123'
+							Icon={FaLinkedin}
+						/>
 					</div>
 				</div>
 
@@ -72,22 +91,28 @@ function Template3() {
 					<Heading text='Interests' />
 					<ul className='flex flex-col pl-8 gap-1'>
 						{hobbies.map((h, i) => (
-							<li className='list-disc' key={i}>
-								{h}
+							<li
+								className='list-disc'
+								key={i}>
+								{h.name}
 							</li>
 						))}
 					</ul>
 				</div>
-				<div className='flex flex-col gap-4'>
-					<Heading text='Languages' />
-					<ul className='flex flex-col pl-8 gap-1'>
-						{languages.map((l, i) => (
-							<li className='list-disc' key={i}>
-								{l.name}
-							</li>
-						))}
-					</ul>
-				</div>
+				{languages && (
+					<div className='flex flex-col gap-4'>
+						<Heading text='Languages' />
+						<ul className='flex flex-col pl-8 gap-1'>
+							{languages.map((l, i) => (
+								<li
+									className='list-disc'
+									key={i}>
+									{l.name}
+								</li>
+							))}
+						</ul>
+					</div>
+				)}
 			</section>
 		</main>
 	);
@@ -95,7 +120,7 @@ function Template3() {
 
 export default Template3;
 
-const ExperienceElement = ({ startDate, endDate, role, company, location, detail }) => {
+const ExperienceElement = ({ startDate, endDate, role, company, location, jobDescription }) => {
 	return (
 		<div className='flex flex-col gap-0.5 font-semibold text-md'>
 			<h1>
@@ -105,7 +130,7 @@ const ExperienceElement = ({ startDate, endDate, role, company, location, detail
 			<h1>
 				{startDate}-{endDate}
 			</h1>
-			<p className='font-medium text-sm'>{detail}</p>
+			<p className='font-medium text-sm'>{jobDescription}</p>
 		</div>
 	);
 };
@@ -126,7 +151,7 @@ const ConatctElement = ({ Icon, contact }) => {
 	return (
 		<div className='flex justify-between items-center'>
 			<Icon className='text-xl' />
-			<span>{contact}</span>
+			<span className='max-w-[250px] text-right'>{contact}</span>
 		</div>
 	);
 };

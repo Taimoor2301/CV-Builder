@@ -1,6 +1,5 @@
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdWorkOutline } from "react-icons/md";
-import { useStore } from "../../store/store";
 import { useDetails } from "../../store/details";
 
 const WorkExperience = ({ index, id }) => {
@@ -44,7 +43,7 @@ const WorkExperience = ({ index, id }) => {
 				<label className='text-md text-2xl'>Company</label>
 				<input
 					type='text'
-					value={thisWorkExperience.comapany}
+					value={thisWorkExperience.company}
 					onChange={(e) => handelChange(e)}
 					name='company'
 					placeholder='company name'
@@ -77,8 +76,8 @@ const WorkExperience = ({ index, id }) => {
 			<div className='flex flex-col gap-2 col-span-full'>
 				<label className='text-md text-2xl'>Job Description</label>
 				<textarea
-					name='detail'
-					value={thisWorkExperience.detail}
+					name='jobDescription'
+					value={thisWorkExperience.jobDescription}
 					onChange={(e) => handelChange(e)}
 					cols='30'
 					rows='5'

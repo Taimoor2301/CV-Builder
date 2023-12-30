@@ -1,56 +1,57 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { CiSaveDown1 } from "react-icons/ci";
 import { MdCancel } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import GeneralDetails from "./GeneralDetails";
 import WorkExperience from "./WorkExperience";
 import Education from "./Education";
 import { useDetails } from "../../store/details";
+import { useAuthStore } from "../../store/authStore";
+import { useNavigate } from "react-router-dom";
+import Save from "./Save";
 
 function CreateCv() {
+	const { isLoggedIn, user } = useAuthStore();
+
 	// !temporary states
 	const [currentSkill, setCurrentSkill] = useState({ name: "", efficiency: "" });
 	const [currentHobbie, setCurrentHobbie] = useState("");
 	const [currentSocailLink, setCurrentSocialLink] = useState({ name: "", link: "" });
 
-	// !work experience
-	const workExperience = useDetails((store) => store.workExperience);
-	const addWorkExperience = useDetails((store) => store.addWorkExperience);
+	const {
+		workExperience,
+		addWorkExperience,
+		skills,
+		addSkill,
+		removeSkill,
+		education,
+		addEducation,
+		hobbies,
+		addHobbie,
+		removeHobbie,
+		socialLinks,
+		addSocialLink,
+		removeSocialLink,
+	} = useDetails();
 
-	// !education
-	const education = useDetails((store) => store.education);
-	const addEducation = useDetails((store) => store.addEducation);
-
-	// !skills
-	const skills = useDetails((store) => store.skills);
-	const addSkill = useDetails((store) => store.addSkill);
-	const removeSkill = useDetails((store) => store.removeSkill);
 	const handleAddSkill = () => {
 		addSkill(currentSkill.name, currentSkill.efficiency);
 		setCurrentSkill({ name: "", efficiency: "" });
 	};
 
-	// !hobbies
-	const hobbies = useDetails((s) => s.hobbies);
-	const addHobbie = useDetails((s) => s.addHobbie);
-	const removeHobbie = useDetails((s) => s.removeHobbie);
 	const handleAddHobbie = () => {
 		addHobbie(currentHobbie);
 		setCurrentHobbie("");
 	};
 
-	// !social links
-	const socialLinks = useDetails((s) => s.socialLinks);
-	const addSocialLinks = useDetails((s) => s.addSocialLink);
-	const removeSocialLinks = useDetails((s) => s.removeSocialLink);
 	const handleAddSocialLinks = () => {
-		addSocialLinks(currentSocailLink.name, currentSocailLink.link);
+		addSocialLink(currentSocailLink.name, currentSocailLink.link);
 		setCurrentSocialLink({ name: "", link: "" });
 	};
 
 	return (
 		<div className='max-w-7xl mx-auto py-5 px-2 grid lg:grid-cols-8 md:grid-cols-6 grid-cols-4 gap-5'>
-			<Sidebar />
 			<h1 className='text-center text-3xl md:text-5xl font-bold py-10 m-5 col-span-full'>Start making your CV</h1>
 
 			<GeneralDetails />
@@ -58,7 +59,11 @@ function CreateCv() {
 			<h1 className='col-span-full text-3xl font-bold text-center underline py-10'>Work Experience</h1>
 
 			{workExperience.map((work, index) => (
-				<WorkExperience key={work.id} {...work} index={index} />
+				<WorkExperience
+					key={work.id}
+					{...work}
+					index={index}
+				/>
 			))}
 
 			<button
@@ -70,7 +75,11 @@ function CreateCv() {
 			<h1 className='col-span-full underline text-3xl font-bold text-center py-10'>Education Details</h1>
 
 			{education.map((edu, idx) => (
-				<Education key={edu.id} {...edu} index={idx} />
+				<Education
+					key={edu.id}
+					{...edu}
+					index={idx}
+				/>
 			))}
 
 			<button
@@ -84,7 +93,9 @@ function CreateCv() {
 			<div className='col-span-full rounded-xl border px-4 py-5 flex gap-3 flex-wrap'>
 				{skills.length ? (
 					skills.map((skill) => (
-						<span className='bg-gray-200 rounded-md p-2 relative group' key={skill.id}>
+						<span
+							className='bg-gray-200 rounded-md p-2 relative group'
+							key={skill.id}>
 							{skill.name} : {skill.efficiency}
 							<MdCancel
 								onClick={() => removeSkill(skill.id)}
@@ -127,7 +138,9 @@ function CreateCv() {
 			<div className='col-span-full rounded-xl border px-4 py-5 flex gap-3 flex-wrap'>
 				{hobbies.length ? (
 					hobbies.map((hobbie) => (
-						<span className='bg-gray-200 rounded-md p-2 relative group' key={hobbie.id}>
+						<span
+							className='bg-gray-200 rounded-md p-2 relative group'
+							key={hobbie.id}>
 							{hobbie.name}
 							<MdCancel
 								onClick={() => removeHobbie(hobbie.id)}
@@ -160,11 +173,13 @@ function CreateCv() {
 			<div className='col-span-full rounded-xl border px-4 py-5 flex gap-3 flex-wrap'>
 				{socialLinks.length ? (
 					socialLinks.map((social) => (
-						<span className='bg-gray-200 rounded-md p-2 relative group flex flex-col gap-1' key={social.id}>
+						<span
+							className='bg-gray-200 rounded-md p-2 relative group flex flex-col gap-1'
+							key={social.id}>
 							<span className='font-medium'>{social.name}</span>
 							<span>{social.link}</span>
 							<MdCancel
-								onClick={() => removeSocialLinks(social.id)}
+								onClick={() => removeSocialLink(social.id)}
 								className='text-xl absolute text-red-500 top-[-5px] right-[-10px] opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-150 cursor-pointer'
 							/>
 						</span>
@@ -193,6 +208,10 @@ function CreateCv() {
 				onClick={() => handleAddSocialLinks()}>
 				<AiOutlinePlusCircle className='text-2xl' /> Add Link
 			</button>
+
+			<div className='col-span-full flex items-center justify-center py-6'>
+				<Save />
+			</div>
 		</div>
 	);
 }
