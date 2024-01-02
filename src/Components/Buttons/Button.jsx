@@ -6,7 +6,7 @@ const Button = ({ text, onClick, link }) => {
 	const navigate = useNavigate();
 	return (
 		<motion.button
-			className='bg-orange-600 hover:bg-orange-400 text-white  font-semibold  px-10 py-3 rounded-[50px]'
+			className='bg-orange-500 hover:bg-orange-600 text-white  font-semibold  px-10 py-3 rounded'
 			onClick={() => {
 				if (onClick) onClick();
 				else navigate(link);

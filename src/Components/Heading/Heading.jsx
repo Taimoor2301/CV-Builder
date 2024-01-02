@@ -6,7 +6,7 @@ const Heading = ({ children }) => {
 			whileInView={{ y: 0, opacity: 1 }}
 			transition={{ duration: 0.5 }}
 			viewport={{ once: true }}
-			className=' text-3xl text-center md:text-5xl font-serif font-bold max-w-4xl mx-auto'>
+			className='text-3xl text-center md:text-5xl font-serif font-bold max-w-4xl mx-auto'>
 			{children}
 		</motion.h1>
 	);

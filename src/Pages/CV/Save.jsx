@@ -4,9 +4,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobalState } from "../../store/globalStates";
 
 export default function Save() {
 	const { name, jobTitle, phoneNumber, email, address, about, workExperience, education, skills, hobbies, socialLinks } = useDetails();
+
+	const { currentTemplate } = useGlobalState();
 
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
@@ -37,28 +40,17 @@ export default function Save() {
 					},
 				}
 			);
-
 			setLoading(false);
 			console.log(res);
-			navigate(`/templates/${res.data._id}`);
+			if (currentTemplate) {
+				navigate(`/cv/${res.data._id}`);
+			} else {
+				navigate(`/templates?next=cv/${res.data._id}`);
+			}
 		} catch (error) {
 			setLoading(false);
 			console.log(error);
 		}
-
-		console.log("local", {
-			name,
-			jobTitle,
-			phoneNumber,
-			email,
-			address,
-			about,
-			workExperience,
-			education,
-			skills,
-			hobbies,
-			socialLinks,
-		});
 	}
 	return (
 		<button

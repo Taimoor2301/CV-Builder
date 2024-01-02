@@ -7,6 +7,7 @@ import Template3 from "../CV Templates/Template3/Template3";
 import Template4 from "../CV Templates/Template4/Template4";
 import Template5 from "../CV Templates/Template5/Template5";
 import Template6 from "../CV Templates/Template6/Template6";
+
 export const data = [
 	{
 		name: "cv1",

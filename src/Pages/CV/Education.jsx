@@ -1,5 +1,9 @@
 import { RiDeleteBin6Fill, RiGraduationCapLine } from "react-icons/ri";
 import { useDetails } from "../../store/details";
+import { inputClasses } from "../../utils/styles";
+import CustomLabel from "./CustomLabel";
+import { motion } from "framer-motion";
+import { slideIn } from "../../animation/motion";
 
 const Education = ({ index, id }) => {
 	const thisEducation = useDetails((s) => s.education.find((e) => e.id === id));
@@ -12,12 +16,17 @@ const Education = ({ index, id }) => {
 	};
 
 	return (
-		<div className='col-span-full px-5 py-6 grid grid-cols-8 gap-2 border focus-within:border-orange-400 rounded-lg'>
+		<motion.div
+			variants={slideIn("down", 1, 0.3)}
+			initial='initial'
+			whileInView='animate'
+			viewport={{ once: true }}
+			className='col-span-full px-5 py-6 grid grid-cols-8 gap-2 border border-orange-400 rounded-lg'>
 			<div className='col-span-full py-3 flex items-center justify-between'>
 				<div className='flex gap-3 items-end text-orange-500'>
 					<RiGraduationCapLine className='text-4xl' />
 
-					<h1 className='text-2xl font-semibold'>Education {index + 1}</h1>
+					<h1 className='text-2xl font-semibold font-serif'>Education {index + 1}</h1>
 				</div>
 
 				<RiDeleteBin6Fill
@@ -27,63 +36,63 @@ const Education = ({ index, id }) => {
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>Course</label>
+				<CustomLabel>Course Name</CustomLabel>
 				<input
 					type='text'
 					name='course'
 					value={thisEducation.course}
 					onChange={(e) => handleChange(e)}
 					placeholder='coure/degree'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>Institute</label>
+				<CustomLabel>Institute Name</CustomLabel>
 				<input
 					type='text'
 					name='institute'
 					value={thisEducation.institute}
 					onChange={(e) => handleChange(e)}
 					placeholder='institute'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>Start Date</label>
+				<CustomLabel>Start Date</CustomLabel>
 				<input
 					type='text'
 					name='startDate'
 					value={thisEducation.startDate}
 					onChange={(e) => handleChange(e)}
 					placeholder='start date'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>End Date</label>
+				<CustomLabel>End Date</CustomLabel>
 				<input
 					type='text'
 					name='endDate'
 					value={thisEducation.endDate}
 					onChange={(e) => handleChange(e)}
 					placeholder='End date'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 
 			<div className='flex flex-col gap-2 col-span-full'>
-				<label className='text-md text-2xl'>Detail</label>
+				<CustomLabel>Details of Course</CustomLabel>
 				<textarea
 					name='detail'
 					value={thisEducation.detail}
 					onChange={(e) => handleChange(e)}
 					cols='30'
 					rows='5'
-					className='p-4 border-2 rounded-xl'
+					className={inputClasses}
 					placeholder='enter details'
 				/>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

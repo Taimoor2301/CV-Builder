@@ -1,6 +1,11 @@
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdWorkOutline } from "react-icons/md";
 import { useDetails } from "../../store/details";
+import { motion } from "framer-motion";
+import { slideIn } from "../../animation/motion";
+
+import CustomLabel from "./CustomLabel";
+import { inputClasses } from "../../utils/styles";
 
 const WorkExperience = ({ index, id }) => {
 	const removeWorkExperience = useDetails((s) => s.removeWorkExperience);
@@ -14,7 +19,12 @@ const WorkExperience = ({ index, id }) => {
 	};
 
 	return (
-		<div className='col-span-full px-5 py-6 grid grid-cols-8 gap-2 border focus-within:border-orange-400 rounded-lg'>
+		<motion.div
+			variants={slideIn("down", 1, 0.3)}
+			initial='initial'
+			whileInView='animate'
+			viewport={{ once: true }}
+			className='col-span-full px-5 py-6 grid grid-cols-8 gap-2 border border-orange-400 rounded'>
 			<div className='col-span-full py-3 flex items-center justify-between'>
 				<div className='flex gap-3 items-end text-orange-500'>
 					<MdWorkOutline className='text-4xl' />
@@ -29,63 +39,63 @@ const WorkExperience = ({ index, id }) => {
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>Role</label>
+				<CustomLabel>Role</CustomLabel>
 				<input
 					type='text'
 					value={thisWorkExperience.role}
 					onChange={(e) => handelChange(e)}
 					name='role'
 					placeholder='role'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>Company</label>
+				<CustomLabel>Company</CustomLabel>
 				<input
 					type='text'
 					value={thisWorkExperience.company}
 					onChange={(e) => handelChange(e)}
 					name='company'
 					placeholder='company name'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>Start Date</label>
+				<CustomLabel>Starting Date</CustomLabel>
 				<input
 					type='text'
 					value={thisWorkExperience.startDate}
 					onChange={(e) => handelChange(e)}
 					name='startDate'
 					placeholder='start date'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex gap-2 flex-col col-span-full md:col-span-2'>
-				<label className='text-md text-2xl'>End Date</label>
+				<CustomLabel>Ending Date</CustomLabel>
 				<input
 					type='text'
 					value={thisWorkExperience.endDate}
 					onChange={(e) => handelChange(e)}
 					name='endDate'
 					placeholder='End date'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 
 			<div className='flex flex-col gap-2 col-span-full'>
-				<label className='text-md text-2xl'>Job Description</label>
+				<CustomLabel>Job Description</CustomLabel>
 				<textarea
 					name='jobDescription'
 					value={thisWorkExperience.jobDescription}
 					onChange={(e) => handelChange(e)}
 					cols='30'
 					rows='5'
-					className='p-4 border-2 rounded-xl'
+					className={inputClasses}
 					placeholder='enter job description'
 				/>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

@@ -1,78 +1,98 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./Pages/Home/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CV1 from "./Components/Cvs/CV1/CV1";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Login/Signup";
 import CreateCv from "./Pages/CV/CreateCv";
-import Test from "./Components/Test";
-import SelectTemplate from "./Pages/SeclectTemplate/SelectTemplate";
+import Result from "./Pages/SeclectTemplate/Result";
 import MainLayout from "./layouts/MainLayout";
 import { fetchUser } from "./utils/auth";
 import { useAuthStore } from "./store/authStore";
 import ProtctedRoutes from "./layouts/ProtctedRoutes";
+import MainTemplatePage from "./Pages/MainTemplatePage/MainTemplatePage";
 
 function App() {
-	const { setUser, setIsLoggedIn, isLoggedIn } = useAuthStore();
+	const { setUser, setIsLoggedIn, setLoading } = useAuthStore();
 
 	async function getUser() {
+		setLoading(true);
 		const { user, error } = await fetchUser();
-		console.log(user);
 		if (user) {
 			setIsLoggedIn(true);
 			setUser(user);
-			console.log(`isloggedin : ${isLoggedIn}`);
+			setLoading(false);
+		} else {
+			console.log(error);
+			setIsLoggedIn(false);
+			setUser(null);
+			setLoading(false);
 		}
 	}
 	useEffect(() => {
 		getUser();
-	}, []);
+	}, [setIsLoggedIn, setUser]);
+
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route
-					path='/'
-					element={<MainLayout />}>
+		<>
+			<BrowserRouter>
+				<ScrollToTop />
+				<Routes>
 					<Route
-						index
-						element={<Home />}
+						path='/'
+						element={<MainLayout />}>
+						<Route
+							index
+							element={<Home />}
+						/>
+
+						<Route
+							path='build'
+							element={
+								<ProtctedRoutes>
+									<CreateCv />
+								</ProtctedRoutes>
+							}
+						/>
+
+						<Route
+							path='templates'
+							element={
+								<ProtctedRoutes>
+									<MainTemplatePage />
+								</ProtctedRoutes>
+							}
+						/>
+						<Route
+							path='cv/:id'
+							element={
+								<ProtctedRoutes>
+									<Result />
+								</ProtctedRoutes>
+							}
+						/>
+					</Route>
+					<Route
+						path='/login'
+						element={<Login />}
 					/>
 					<Route
-						path='resume'
-						element={<CV1 />}
+						path='/signup'
+						element={<Signup />}
 					/>
-					<Route
-						path='build'
-						element={
-							<ProtctedRoutes>
-								<CreateCv />
-							</ProtctedRoutes>
-						}
-					/>
-					<Route
-						path='cover'
-						element={<Test />}
-					/>
-					<Route
-						path='templates'
-						element={<SelectTemplate />}
-					/>
-					<Route
-						path='templates/:id'
-						element={<SelectTemplate />}
-					/>
-				</Route>
-				<Route
-					path='/login'
-					element={<Login />}
-				/>
-				<Route
-					path='/signup'
-					element={<Signup />}
-				/>
-			</Routes>
-		</BrowserRouter>
+				</Routes>
+			</BrowserRouter>
+		</>
 	);
 }
 
 export default App;
+
+const ScrollToTop = () => {
+	const { pathname } = useLocation();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
+
+	return null;
+};

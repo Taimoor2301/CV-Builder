@@ -2,7 +2,7 @@ import React from "react";
 import Heading from "../../Components/Heading/Heading";
 import Button from "../../Components/Buttons/Button";
 import { data } from "../../data/data";
-import { useStore } from "../../store/store";
+import { useGlobalState } from "../../store/globalStates";
 import { useNavigate } from "react-router-dom";
 const ResumeSection = () => {
 	return (
@@ -15,7 +15,10 @@ const ResumeSection = () => {
 
 			<div className='grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-20 p-1'>
 				{data.map((data) => (
-					<CVTemplate key={data.name} {...data} />
+					<CVTemplate
+						key={data.name}
+						{...data}
+					/>
 				))}
 			</div>
 		</div>
@@ -25,8 +28,7 @@ const ResumeSection = () => {
 export default ResumeSection;
 
 const CVTemplate = ({ image, name, id }) => {
-	const currentTemplate = useStore((store) => store.currentTemplate);
-	const setCurrentTemplate = useStore((store) => store.setCurrentTemplate);
+	const { currentTemplate, setCurrentTemplate } = useGlobalState();
 	const navigate = useNavigate();
 	const handleClick = () => {
 		setCurrentTemplate(id);
@@ -34,9 +36,16 @@ const CVTemplate = ({ image, name, id }) => {
 	};
 	return (
 		<div className='col-span-1 shadow-md relative group'>
-			<img src={image} className='max-w-full' alt='' />
+			<img
+				src={image}
+				className='max-w-full'
+				alt=''
+			/>
 			<div className='absolute bottom-10 left-[50%] translate-x-[-50%] w-max opacity-0 group-hover:opacity-100 transition-all'>
-				<Button text='Use this template' onClick={() => handleClick()} />
+				<Button
+					text='Use this template'
+					onClick={() => handleClick()}
+				/>
 			</div>
 		</div>
 	);

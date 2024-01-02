@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { login } from "../../utils/auth";
 import { useAuthStore } from "../../store/authStore";
 
@@ -8,9 +8,12 @@ function Loging() {
 	const [password, setPassword] = useState("");
 	const { isLoggedIn, setUser, setIsLoggedIn } = useAuthStore();
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const from = location.state?.from?.pathname || "/";
 
 	useEffect(() => {
-		if (isLoggedIn) navigate("/");
+		if (isLoggedIn) navigate(from, { replace: true });
 	}, [isLoggedIn]);
 
 	async function handleLogin(e) {
@@ -19,6 +22,7 @@ function Loging() {
 		if (user) {
 			setIsLoggedIn(true);
 			setUser(user);
+			navigate(from, { replace: true });
 		}
 		if (error) console.log(error);
 	}

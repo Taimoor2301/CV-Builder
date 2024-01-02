@@ -1,26 +1,20 @@
 import React from "react";
 import { useDetails } from "../../store/details";
+import { inputClasses } from "../../utils/styles";
+import CustomLabel from "./CustomLabel";
 
 function GeneralDetails() {
-	const setDetails = useDetails((details) => details.setDetails);
-	const name = useDetails((d) => d.name);
-	const email = useDetails((d) => d.email);
-	const phoneNumber = useDetails((d) => d.phoneNumber);
-	const address = useDetails((d) => d.address);
-	const jobTitle = useDetails((d) => d.jobTitle);
-	const about = useDetails((d) => d.about);
+	const { setDetails, name, email, phoneNumber, address, jobTitle, about } = useDetails();
 
 	function handleChange(e) {
 		const { name, value } = e.target;
-
 		setDetails(name, value);
 	}
+
 	return (
 		<>
 			<div className='flex flex-col gap-2 col-span-full md:col-span-2'>
-				<label htmlFor='name' className='text-2xl font-medium'>
-					Name
-				</label>
+				<CustomLabel target='name'>Name</CustomLabel>
 				<input
 					type='text'
 					value={name}
@@ -28,13 +22,11 @@ function GeneralDetails() {
 					name='name'
 					id='name'
 					placeholder='name'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex flex-col gap-2 col-span-full md:col-span-2'>
-				<label htmlFor='jobTitle' className='text-2xl font-medium'>
-					Job Title
-				</label>
+				<CustomLabel target='jobTitle'>Job Title</CustomLabel>
 				<input
 					type='text'
 					value={jobTitle}
@@ -42,13 +34,11 @@ function GeneralDetails() {
 					name='jobTitle'
 					id='jobTitle'
 					placeholder='Job title'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex flex-col gap-2 col-span-full md:col-span-2'>
-				<label htmlFor='phoneNumber' className='text-2xl font-medium'>
-					Phone Number
-				</label>
+				<CustomLabel target='phoneNumber'>Phone</CustomLabel>
 				<input
 					type='phone'
 					value={phoneNumber}
@@ -56,13 +46,11 @@ function GeneralDetails() {
 					name='phoneNumber'
 					id='phoneNumber'
 					placeholder='Phone number'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex flex-col gap-2 col-span-full md:col-span-2'>
-				<label htmlFor='email' className='text-2xl font-medium'>
-					Email
-				</label>
+				<CustomLabel target='email'>Email</CustomLabel>
 				<input
 					type='email'
 					value={email}
@@ -70,13 +58,11 @@ function GeneralDetails() {
 					name='email'
 					id='email'
 					placeholder='Email'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 			<div className='flex flex-col gap-2 col-span-4'>
-				<label htmlFor='address' className='text-2xl font-medium'>
-					Address
-				</label>
+				<CustomLabel target='address'>Address</CustomLabel>
 				<input
 					type='address'
 					value={address}
@@ -84,14 +70,12 @@ function GeneralDetails() {
 					name='address'
 					id='address'
 					placeholder='Address'
-					className='p-4 rounded-lg border-2'
+					className={inputClasses}
 				/>
 			</div>
 
 			<div className='flex flex-col gap-2 col-span-full'>
-				<label htmlFor='about' className='text-2xl font-medium'>
-					Tell us about yourself
-				</label>
+				<CustomLabel target='about'>About/Objective</CustomLabel>
 				<textarea
 					name='about'
 					value={about}
@@ -99,7 +83,7 @@ function GeneralDetails() {
 					cols='30'
 					id='about'
 					rows='10'
-					className='border-2 rounded-xl w-full p-4'
+					className={inputClasses}
 					placeholder='tell us about yourself...'></textarea>
 			</div>
 		</>

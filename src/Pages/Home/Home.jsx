@@ -54,14 +54,14 @@ const Landing = () => {
 			<div className='flex flex-col items-center xl:items-start justify-center gap-8 lg:max-w-2xl'>
 				<motion.h1
 					variants={slideIn("down", 0.5)}
-					className='lg:text-6xl text-3xl font-semibold font-serif'
+					className='lg:text-6xl text-3xl font-semibold font-serif bg-gradient-to-r from-gray-800 to-zinc-700 text-transparent bg-clip-text'
 					style={{ lineHeight: "1.2" }}>
 					Free Online Resume Builder: Make Yours in Minutes
 				</motion.h1>
 
 				<motion.p
 					variants={slideIn("down", 0.5, 0.3)}
-					className='md:text-xl'>
+					className='md:text-lg text-gray-600 font-medium'>
 					Create a job-winning professional resume easily. Our builder features 30+ resume templates, step-by-step guidance and endless customizable
 					content options.
 				</motion.p>

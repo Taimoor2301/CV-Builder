@@ -5,7 +5,7 @@ import Heading from "../../Components/Heading/Heading";
 register();
 import { data } from "../../data/data";
 import { useNavigate } from "react-router-dom";
-import { useStore } from "../../store/store";
+import { useGlobalState } from "../../store/globalStates";
 
 function Slider() {
 	const ref = useRef(null);
@@ -37,9 +37,17 @@ function Slider() {
 				className='cursor-pointer absolute top-[60%] left-0 text-5xl text-orange-500 z-[100000]'
 				onClick={() => handleSlides("prev")}
 			/>
-			<swiper-container autoPlay='true' loop='true' slides-per-view={slidesPerView} gap='3' ref={ref}>
+			<swiper-container
+				autoPlay='true'
+				loop='true'
+				slides-per-view={slidesPerView}
+				gap='3'
+				ref={ref}>
 				{data.map((data) => (
-					<Slide key={data.name} {...data} />
+					<Slide
+						key={data.name}
+						{...data}
+					/>
 				))}
 			</swiper-container>
 			<BsFillArrowRightCircleFill
@@ -54,15 +62,21 @@ export default Slider;
 
 const Slide = ({ image, id }) => {
 	const navigate = useNavigate();
-	const setCurrentTemplate = useStore((store) => store.setCurrentTemplate);
+	const setCurrentTemplate = useGlobalState((store) => store.setCurrentTemplate);
 	const handleClick = () => {
 		setCurrentTemplate(id);
 		navigate("/build");
 	};
 	return (
 		<swiper-slide>
-			<div onClick={handleClick} className='mx-10 select-none border-2 cursor-pointer'>
-				<img src={image} className='max-w-full' alt='' />
+			<div
+				onClick={handleClick}
+				className='mx-10 select-none border-2 cursor-pointer'>
+				<img
+					src={image}
+					className='max-w-full'
+					alt=''
+				/>
 			</div>
 		</swiper-slide>
 	);

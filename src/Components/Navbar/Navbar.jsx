@@ -2,7 +2,6 @@ import { BsFillPersonFill } from "react-icons/bs";
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-import { fadeIn } from "../../animation/motion";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
@@ -23,9 +22,9 @@ const Navbar = () => {
 
 	return (
 		<nav
-			className='max-w-7xl mx-auto flex justify-between items-center px-2 relative'
+			className='max-w-7xl mx-auto flex justify-between items-center px-5 py-2 sticky left-0 top-2 z-[1000000] bg-white border rounded-lg'
 			id='nav'>
-			<div className='text-5xl font-bold text-neutral-800 w-36 pt-5'>
+			<div className='text-5xl font-bold text-neutral-800 w-36'>
 				<img
 					src={logo}
 					alt=''
@@ -35,9 +34,7 @@ const Navbar = () => {
 			<div className=' gap-5 uppercase text-[12px] py-3 font-medium hidden xl:flex items-center'>
 				<NavLink to='/'>Home</NavLink>
 				<NavLink to='/templates'>Templates</NavLink>
-				<NavLink to='/resume'>Resume</NavLink>
 				<NavLink to='/build'>Build</NavLink>
-				<NavLink to='/cover'>Cover Letters</NavLink>
 
 				{!isLoggedIn ? (
 					<NavLink
@@ -78,20 +75,11 @@ const Navbar = () => {
 					onClick={() => setNavOpen(false)}>
 					Recent{" "}
 				</Link>
-				<Link
-					to='/resume'
-					onClick={() => setNavOpen(false)}>
-					Resume
-				</Link>
+
 				<Link
 					to='/build'
 					onClick={() => setNavOpen(false)}>
 					Build
-				</Link>
-				<Link
-					to='/cover'
-					onClick={() => setNavOpen(false)}>
-					Cover Letters
 				</Link>
 
 				{!isLoggedIn ? (

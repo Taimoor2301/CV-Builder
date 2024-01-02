@@ -1,15 +1,15 @@
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { CiSaveDown1 } from "react-icons/ci";
 import { MdCancel } from "react-icons/md";
-import React, { useEffect, useState } from "react";
+import { fadeIn, slideIn } from "../../animation/motion";
+import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import GeneralDetails from "./GeneralDetails";
 import WorkExperience from "./WorkExperience";
 import Education from "./Education";
 import { useDetails } from "../../store/details";
 import { useAuthStore } from "../../store/authStore";
-import { useNavigate } from "react-router-dom";
 import Save from "./Save";
+import { motion } from "framer-motion";
 
 function CreateCv() {
 	const { isLoggedIn, user } = useAuthStore();
@@ -51,12 +51,19 @@ function CreateCv() {
 	};
 
 	return (
-		<div className='max-w-7xl mx-auto py-5 px-2 grid lg:grid-cols-8 md:grid-cols-6 grid-cols-4 gap-5'>
-			<h1 className='text-center text-3xl md:text-5xl font-bold py-10 m-5 col-span-full'>Start making your CV</h1>
+		<motion.div
+			variants={fadeIn(0.75)}
+			initial='initial'
+			whileInView='animate'
+			className='max-w-7xl mx-auto py-5 px-2 grid lg:grid-cols-8 md:grid-cols-6 grid-cols-4 gap-5'>
+			<Sidebar />
+			<div className='text-3xl md:text-5xl font-bold py-10 mt-10 col-span-full font-serif text-gray-800 tracking-tighte text-center'>
+				Start creating your CV!
+			</div>
 
 			<GeneralDetails />
 
-			<h1 className='col-span-full text-3xl font-bold text-center underline py-10'>Work Experience</h1>
+			<CustomHeading>Work Experience</CustomHeading>
 
 			{workExperience.map((work, index) => (
 				<WorkExperience
@@ -72,7 +79,7 @@ function CreateCv() {
 				<AiOutlinePlusCircle className='text-2xl' /> Add Work Experience
 			</button>
 
-			<h1 className='col-span-full underline text-3xl font-bold text-center py-10'>Education Details</h1>
+			<CustomHeading>Education Details</CustomHeading>
 
 			{education.map((edu, idx) => (
 				<Education
@@ -88,9 +95,9 @@ function CreateCv() {
 				<AiOutlinePlusCircle className='text-2xl' /> Add Education
 			</button>
 
-			<h1 className='col-span-full underline text-3xl font-bold text-center py-10'>Skills</h1>
+			<CustomHeading>Skills</CustomHeading>
 
-			<div className='col-span-full rounded-xl border px-4 py-5 flex gap-3 flex-wrap'>
+			<div className='col-span-full rounded-md border border-orange-400 px-4 py-3 flex gap-3 flex-wrap'>
 				{skills.length ? (
 					skills.map((skill) => (
 						<span
@@ -104,7 +111,7 @@ function CreateCv() {
 						</span>
 					))
 				) : (
-					<div>No skills added...</div>
+					<div className='font-medium w-full text-center text-gray-500'>No skills added...</div>
 				)}
 			</div>
 			<input
@@ -114,13 +121,13 @@ function CreateCv() {
 				onChange={(e) => setCurrentSkill((prev) => ({ ...prev, name: e.target.value }))}
 				placeholder='type a skill'
 				id='skillName'
-				className='py-2 px-5 rounded-xl border col-span-3'
+				className='px-3 py-2 rounded-md focus:outline-none focus:border-orange-600 bg-gray-50 border placeholder:text-gray-400 col-span-3'
 			/>
 			<select
 				name='efficiency'
 				value={currentSkill.efficiency}
 				onChange={(e) => setCurrentSkill((prev) => ({ ...prev, efficiency: e.target.value }))}
-				className='p-2 rounded-xl border col-span-2 md:col-span-3'>
+				className='px-3 py-2 rounded-md focus:outline-none focus:border-orange-600 bg-gray-50 border placeholder:text-gray-400 col-span-2 md:col-span-3'>
 				<option value='none'>Select Level</option>
 				<option value='biggner'>Biggner</option>
 				<option value='intermediate'>Intermediate</option>
@@ -133,9 +140,9 @@ function CreateCv() {
 				<AiOutlinePlusCircle className='text-2xl' /> Add Skill
 			</button>
 
-			<h1 className='col-span-full underline text-3xl font-bold text-center py-10'>Hobbies</h1>
+			<CustomHeading>Hobbies</CustomHeading>
 
-			<div className='col-span-full rounded-xl border px-4 py-5 flex gap-3 flex-wrap'>
+			<div className='col-span-full rounded-md border border-orange-400 px-4 py-3 flex gap-3 flex-wrap'>
 				{hobbies.length ? (
 					hobbies.map((hobbie) => (
 						<span
@@ -149,7 +156,7 @@ function CreateCv() {
 						</span>
 					))
 				) : (
-					<div>No hobbies added...</div>
+					<div className='font-medium w-full text-center text-gray-500'>No hobbies added...</div>
 				)}
 			</div>
 			<input
@@ -159,7 +166,7 @@ function CreateCv() {
 				onChange={(e) => setCurrentHobbie(e.target.value)}
 				placeholder='type a hobbie'
 				id='hobbie'
-				className='py-2 px-5 rounded-xl border md:col-span-3 col-span-full'
+				className='px-3 py-2 rounded-md focus:outline-none focus:border-orange-600 bg-gray-50 border placeholder:text-gray-400 col-span-3'
 			/>
 
 			<button
@@ -168,9 +175,9 @@ function CreateCv() {
 				<AiOutlinePlusCircle className='text-2xl' /> Add Hobbie
 			</button>
 
-			<h1 className='col-span-full text-3xl font-bold text-center py-10 underline'>Social Links</h1>
+			<CustomHeading>Social</CustomHeading>
 
-			<div className='col-span-full rounded-xl border px-4 py-5 flex gap-3 flex-wrap'>
+			<div className='col-span-full rounded-md border border-orange-400 px-4 py-3 flex gap-3 flex-wrap'>
 				{socialLinks.length ? (
 					socialLinks.map((social) => (
 						<span
@@ -185,7 +192,7 @@ function CreateCv() {
 						</span>
 					))
 				) : (
-					<div>No social links added...</div>
+					<div className='font-medium w-full text-center text-gray-500'>No social links added...</div>
 				)}
 			</div>
 			<input
@@ -193,14 +200,14 @@ function CreateCv() {
 				placeholder='type name'
 				value={currentSocailLink.name}
 				onChange={(e) => setCurrentSocialLink((prev) => ({ ...prev, name: e.target.value }))}
-				className='py-2 px-5 rounded-xl border col-span-full md:col-span-3'
+				className='py-2 px-5 rounded-md border focus:border-orange-400 bg-gray-50 focus:outline-none col-span-full md:col-span-3'
 			/>
 			<input
 				type='text'
 				placeholder='enter link'
 				value={currentSocailLink.link}
 				onChange={(e) => setCurrentSocialLink((prev) => ({ ...prev, link: e.target.value }))}
-				className='py-2 px-5 rounded-xl border col-span-full md:col-span-3'
+				className='py-2 px-5 rounded-md border focus:border-orange-400 bg-gray-50 focus:outline-none col-span-full md:col-span-3'
 			/>
 
 			<button
@@ -212,8 +219,21 @@ function CreateCv() {
 			<div className='col-span-full flex items-center justify-center py-6'>
 				<Save />
 			</div>
-		</div>
+		</motion.div>
 	);
 }
 
 export default CreateCv;
+
+const CustomHeading = ({ children }) => {
+	return (
+		<motion.h1
+			variants={slideIn("down", 1, 0.3)}
+			initial='initial'
+			whileInView='animate'
+			viewport={{ once: true }}
+			className='col-span-full text-3xl font-bold text-center underline py-10 text-gray-900 font-serif'>
+			{children}
+		</motion.h1>
+	);
+};
